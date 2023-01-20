@@ -9,6 +9,7 @@ public class Main {
         new FunFiles();
 
         String filename = "myFile.txt";
+
         String path = "C:\\Users\\ganerud.max\\IdeaProjects\\File";
 
     }

@@ -6,17 +6,25 @@ import java.util.*;
 
 public class FunFiles {
 
-    String myFilesName = "test.txt";
+    //String myFileName = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\words.txt";
+    String myFileName = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\svenska-ord.txt";
+
+    //String myFileSortOutput = "C:\\Users\\ganerud.max\\Desktop\\Output\\SortOutput.txt";
 
     public FunFiles(){
 
         //findFiles();
 
-        createFile();
+        //createFile();
 
-        writeToFile();
+        //writeToFile();
 
-        fileReader();
+        //readFile();
+
+        //NameList();
+
+        sortFile();
+
     }
 
     public void findFiles(){
@@ -32,12 +40,10 @@ public class FunFiles {
         }
 
     }
-     /*
-     * Skapa ny fil
-      */
+
     public void createFile(){
 
-        File myFile = new File("test.txt");
+        File myFile = new File(myFileName);
 
         try {
 
@@ -53,7 +59,7 @@ public class FunFiles {
 
         catch(IOException e){
 
-            System.out.println("L");
+            System.out.println("An Error Occurred");
 
             e.printStackTrace();
 
@@ -69,13 +75,13 @@ public class FunFiles {
 
         try{
 
-            FileWriter myWriter = new FileWriter(myFilesName);
+            FileWriter myWriter = new FileWriter(myFileName);
 
-            myWriter.write("This text file belongs to me.");
+            myWriter.write("Filip är Nörd");
 
             myWriter.close();
 
-            System.out.println("Succses.");
+            System.out.println("Success");
 
         }
         catch(IOException a){
@@ -88,17 +94,22 @@ public class FunFiles {
 
     }
 
-    public void fileReader(){
+    public void readFile(){
 
-        File myFile = new File(myFilesName);
+        File myFile = new File(myFileName);
 
         try{
 
             Scanner myScan = new Scanner(myFile);
 
-            String data = myScan.next();
+            while (myScan.hasNextLine()) {
 
-            System.out.println(data);
+                String data = myScan.nextLine();
+
+                System.out.println(data);
+
+            }
+
 
         }catch(IOException b){
 
@@ -107,7 +118,57 @@ public class FunFiles {
             b.printStackTrace();
         }
 
-        //while(myReader.hasNextLine()){}
+    }
+
+    public void NameList(){
+
+        try{
+
+            BufferedWriter bw = new BufferedWriter(
+                    new FileWriter("C:\\Users\\ganerud.max\\Desktop\\Output\\Outputtext.txt"));
+
+            bw.write("Timmy\n");
+            bw.write("Daniella\n");
+            bw.write("Fredrick");
+            bw.close();
+
+        }catch(IOException e){
+
+        return;
+
+        }
+
+    }
+
+    public void sortFile(){
+
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("myFileName"));
+
+            ArrayList<String> lines = new ArrayList<String>();
+
+            String currentLine = br.readLine();
+
+            while (currentLine != null)
+            {
+                lines.add(currentLine);
+                currentLine = br.readLine();
+            }
+
+            Collections.sort(lines);
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\ganerud.max\\Desktop\\Output\\SortOutput.txt"));
+
+            for (String line : lines) {
+
+                writer.write(line);
+
+                writer.newLine();
+            }
+
+        }catch (IOException f) {
+            return;
+        }
 
     }
 
