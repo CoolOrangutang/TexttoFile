@@ -9,21 +9,17 @@ public class FunFiles {
     //String myFileName = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\words.txt";
     String myFileName = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\svenska-ord.txt";
 
-    //String myFileSortOutput = "C:\\Users\\ganerud.max\\Desktop\\Output\\SortOutput.txt";
+    String myFileSortOutput = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\SortOutput.txt";
 
     public FunFiles(){
 
-        //findFiles();
-
-        //createFile();
-
-        //writeToFile();
-
-        //readFile();
-
-        //NameList();
-
+        findFiles();
+        createFile();
+        writeToFile();
+        readFile();
+        NameList();
         sortFile();
+        findLongestWord();
 
     }
 
@@ -84,7 +80,7 @@ public class FunFiles {
             System.out.println("Success");
 
         }
-        catch(IOException a){
+        catch (IOException a){
 
             System.out.println("Nah brooo u can't doo that!");
 
@@ -108,6 +104,7 @@ public class FunFiles {
 
                 System.out.println(data);
 
+                myScan.close();
             }
 
 
@@ -124,20 +121,19 @@ public class FunFiles {
 
         try{
 
-            BufferedWriter bw = new BufferedWriter(
+            BufferedWriter myScan = new BufferedWriter(
                     new FileWriter("C:\\Users\\ganerud.max\\Desktop\\Output\\Outputtext.txt"));
 
-            bw.write("Timmy\n");
-            bw.write("Daniella\n");
-            bw.write("Fredrick");
-            bw.close();
+            myScan.write("Timmy\n");
+            myScan.write("Daniella\n");
+            myScan.write("Fredrick");
+            myScan.close();
 
         }catch(IOException e){
 
-        return;
+            e.printStackTrace();
 
         }
-
     }
 
     public void sortFile(){
@@ -157,19 +153,56 @@ public class FunFiles {
 
             Collections.sort(lines);
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\ganerud.max\\Desktop\\Output\\SortOutput.txt"));
+            BufferedWriter writer = new BufferedWriter(
+                    new FileWriter("myFileSortOutput"));
 
             for (String line : lines) {
-
                 writer.write(line);
-
                 writer.newLine();
             }
 
         }catch (IOException f) {
-            return;
+
         }
+
+
+    }
+
+    public String findLongestWord()
+    {
+
+        String longestWord = "";
+        String current;
+
+        try {
+
+            Scanner newScanner = new Scanner("words.txt");
+
+            // Så länge som den kan så ska den jämnföra dembåda orden
+
+            while (newScanner.hasNext()) {
+
+                current = newScanner.next();
+
+                if (current.length() > longestWord.length()) {
+                    longestWord = current;
+                }
+
+            }
+
+            System.out.println("\n"+longestWord+"\n");
+
+        }
+        catch (Exception e){
+
+            System.out.println("Det blev fel");
+
+        }
+
+        return longestWord;
 
     }
 
 }
+
+
