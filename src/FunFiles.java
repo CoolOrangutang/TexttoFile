@@ -6,8 +6,7 @@ import java.util.*;
 
 public class FunFiles {
 
-    //String myFileName = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\words.txt";
-    String myFileName = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\svenska-ord.txt";
+    String myFileName = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\words.txt";
 
     String myFileSortOutput = "C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\SortOutput.txt";
 
@@ -31,11 +30,14 @@ public class FunFiles {
 
         for(String fileNames : allFiles){
 
-            System.out.println(fileNames);
+            if(fileNames.endsWith(".txt")){
+                System.out.println(fileNames);
+            }
 
         }
 
     }
+
 
     public void createFile(){
 
@@ -47,7 +49,7 @@ public class FunFiles {
 
             if (!success) {
 
-                System.out.printf("Din mamma fanns redan");
+                System.out.println("Din mamma fanns redan");
 
             }
 
@@ -73,12 +75,12 @@ public class FunFiles {
 
             FileWriter myWriter = new FileWriter(myFileName);
 
-            myWriter.write("Filip är Nörd");
+            myWriter.write("Filip är Nörd!");
 
             myWriter.close();
 
+            System.out.println("");
             System.out.println("Success");
-
         }
         catch (IOException a){
 
@@ -94,9 +96,8 @@ public class FunFiles {
 
         File myFile = new File(myFileName);
 
-        try{
 
-            Scanner myScan = new Scanner(myFile);
+        try (Scanner myScan = new Scanner(myFile)) {
 
             while (myScan.hasNextLine()) {
 
@@ -104,9 +105,7 @@ public class FunFiles {
 
                 System.out.println(data);
 
-                myScan.close();
             }
-
 
         }catch(IOException b){
 
@@ -127,6 +126,7 @@ public class FunFiles {
             myScan.write("Timmy\n");
             myScan.write("Daniella\n");
             myScan.write("Fredrick");
+
             myScan.close();
 
         }catch(IOException e){
@@ -139,10 +139,10 @@ public class FunFiles {
     public void sortFile(){
 
         try{
+
             BufferedReader br = new BufferedReader(new FileReader("myFileName"));
 
             ArrayList<String> lines = new ArrayList<String>();
-
             String currentLine = br.readLine();
 
             while (currentLine != null)
@@ -154,10 +154,12 @@ public class FunFiles {
             Collections.sort(lines);
 
             BufferedWriter writer = new BufferedWriter(
-                    new FileWriter("myFileSortOutput"));
+                    new FileWriter("SortOutput.txt"));
 
             for (String line : lines) {
+
                 writer.write(line);
+
                 writer.newLine();
             }
 
@@ -165,18 +167,19 @@ public class FunFiles {
 
         }
 
-
     }
 
-    public String findLongestWord()
+    public void findLongestWord()
     {
+
+        File wordFiles = new File("C:\\Users\\ganerud.max\\IdeaProjects\\Program Lektion 06122022\\src\\svenska-ord (1).txt");
 
         String longestWord = "";
         String current;
 
         try {
 
-            Scanner newScanner = new Scanner("words.txt");
+            Scanner newScanner = new Scanner(wordFiles);
 
             // Så länge som den kan så ska den jämnföra dembåda orden
 
@@ -190,19 +193,14 @@ public class FunFiles {
 
             }
 
-            System.out.println("\n"+longestWord+"\n");
+
+            System.out.println(longestWord);
 
         }
         catch (Exception e){
-
             System.out.println("Det blev fel");
-
         }
-
-        return longestWord;
-
     }
-
 }
 
 
